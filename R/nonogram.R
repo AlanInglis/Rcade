@@ -152,7 +152,9 @@ nonogramUI <- function(id) {
     div(style = "margin-bottom:10px; font-size:20px; font-weight:bold;",
         textOutput(ns("level_info"))
     ),
-    uiOutput(ns("puzzle")),
+    div(style = "display: flex; justify-content: center; align-items: center;",
+        uiOutput(ns("puzzle"))
+    ),
     fluidRow(
       column(4, actionButton(ns("reset"),       "Reset")),
       column(4, actionButton(ns("show_sol"),    "Show solution")),
@@ -186,8 +188,11 @@ nonogramServer <- function(id) {
     size_params <- reactive({
       nc <- length(cur()$col_clues)
       nr <- length(cur()$row_clues)
-      if (nc > 15 || nr > 15) {
-        list(cell_size = 20, clue_width = 40, font_size = 12)
+      
+      if (nc > 20 || nr > 20) {
+        list(cell_size = 16, clue_width = 36, font_size = 10)
+      } else if (nc > 9 || nr > 9) {  # target Level 3 (10x10)
+        list(cell_size = 25, clue_width = 45, font_size = 14)
       } else {
         list(cell_size = 50, clue_width = 60, font_size = 18)
       }

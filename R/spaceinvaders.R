@@ -61,7 +61,11 @@ spaceInvadersUI <- function(id) {
       bindSpaceKeys();
     }
   });
-", ns("left_key"), ns("right_key"), ns("fire_key"))))
+
+  Shiny.addCustomMessageHandler('spaceinvaders-state', function(message) {
+    Shiny.setInputValue('%s-pause_game', !message.playing, {priority: 'event'});
+  });
+", ns("left_key"), ns("right_key"), ns("fire_key"), ns("pause_game"))))
     ),
     h3("Space Invaders", style = "text-align: center; color: #00ffcc;"),
     h4(textOutput(ns("level_text")), style = "text-align: center; color: #ccc;"),
@@ -71,11 +75,11 @@ spaceInvadersUI <- function(id) {
     uiOutput(ns("game_grid")),
     br(),
     div(style = "text-align: center;",
-        actionButton(ns("left"), "◀"),
-        actionButton(ns("fire"), "🔺"),
-        actionButton(ns("right"), "▶"),
-        actionButton(ns("next_level"), "➡️ Next Level"),
-        actionButton(ns("reset"), "🔁 Reset")
+        actionButton(ns("left"), "\u25C0"),
+        actionButton(ns("fire"), "\u2B06"),
+        actionButton(ns("right"), "\u25B6"),
+        actionButton(ns("next_level"), "\u27A1\ufe0f Next Level"),
+        actionButton(ns("reset"), "\u1F501 Reset")
     )
   )
 }
@@ -101,6 +105,12 @@ spaceInvadersServer <- function(id) {
       score = 0,
       level = 1
     )
+    
+    paused <- reactiveVal(FALSE)
+    
+    observeEvent(input$pause_game, {
+      paused(input$pause_game)
+    })
     
     initialise_game <- function() {
       state$player_col <- 8
@@ -202,6 +212,7 @@ spaceInvadersServer <- function(id) {
     observe({
       invalidateLater(100)
       isolate({
+        if (paused()) return()
         if (state$game_over || state$win) return()
         if (!is.null(state$bullet)) {
           br <- state$bullet$row
@@ -231,6 +242,7 @@ spaceInvadersServer <- function(id) {
     observe({
       invalidateLater(1000)
       isolate({
+        if (paused()) return()
         if (state$game_over || state$win) return()
         
         enemies <- state$enemies

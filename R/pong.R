@@ -63,6 +63,14 @@ play_pong <- function(id) {
     const ns = '%s-';
     const canvas = document.getElementById(ns + 'canvas');
     const ctx = canvas.getContext('2d');
+    
+    Shiny.addCustomMessageHandler('pong-state', function(message) {
+  if (message.playing) {
+    if (!gamePaused) animFrame = requestAnimationFrame(draw);
+  } else {
+    cancelAnimationFrame(animFrame);
+  }
+});
 
     let paddleHeight = 75, paddleWidth = 10;
     let playerY, aiY;

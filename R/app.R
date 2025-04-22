@@ -76,11 +76,12 @@ launch_app <- function() {
     })
     
     observeEvent(input$tabs, {
-      if (input$tabs == "pong") {
-        session$onFlushed(function() {
-          session$sendCustomMessage("pong-init", list())
-        }, once = TRUE)
-      }
+      session$sendCustomMessage("pong-state", list(
+        playing = (input$tabs == "Pong")
+      ))
+      session$sendCustomMessage("spaceinvaders-state", list(
+        playing = (input$tabs == "Space Invaders")
+      ))
     })
     
     ticTacToeServer("tic1")
