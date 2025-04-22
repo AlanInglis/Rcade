@@ -44,11 +44,12 @@ launch_app <- function() {
                img(src = "myimg/Rcade.png", class = "game-image"),
                tags$div(
                  style = "text-align: center; margin-top: -360px;",
-                 actionButton("go_tic", "Tic Tac Toe", class = "retro-btn"),
-                 actionButton("go_nonogram", "Nonogram", class = "retro-btn"),
-                 actionButton("go_cave", "Cave Adventure", class = "retro-btn"),
-                 actionButton("go_invaders", "Space Invaders", class = "retro-btn"),
-                 actionButton("go_quest", "R Quest", class = "retro-btn")
+                 actionButton("go_tic",      "Tic Tac Toe",     class = "retro-btn"),
+                 actionButton("go_nonogram", "Nonogram",        class = "retro-btn"),
+                 actionButton("go_cave",     "Cave Adventure",  class = "retro-btn"),
+                 actionButton("go_invaders", "Space Invaders",  class = "retro-btn"),
+                 actionButton("go_quest",    "R Quest",         class = "retro-btn"),
+                 actionButton("go_pong",     "Pong",            class = "retro-btn")
                )
              )
     ),
@@ -56,7 +57,8 @@ launch_app <- function() {
     tabPanel("Nonogram",       nonogramUI("non1")),
     tabPanel("Cave Adventure", caveUI("cave1")),
     tabPanel("Space Invaders", spaceInvadersUI("invaders1")),
-    tabPanel("R Quest",        shinyquestUI("quest1"))
+    tabPanel("R Quest",        shinyquestUI("quest1")),
+    tabPanel("Pong",           play_pong("pong"))
   )
   
   server <- function(input, output, session) {
@@ -65,10 +67,20 @@ launch_app <- function() {
     observeEvent(input$go_cave,     updateTabsetPanel(session, "tabs", selected = "Cave Adventure"))
     observeEvent(input$go_invaders, updateTabsetPanel(session, "tabs", selected = "Space Invaders"))
     observeEvent(input$go_quest,    updateTabsetPanel(session, "tabs", selected = "R Quest"))
+    observeEvent(input$go_pong,     updateTabsetPanel(session, "tabs", selected = "Pong"))
+    
     observe({
       observeEvent(input$tabs, {
         session$sendCustomMessage("activeTabChanged", input$tabs)
       })
+    })
+    
+    observeEvent(input$tabs, {
+      if (input$tabs == "pong") {
+        session$onFlushed(function() {
+          session$sendCustomMessage("pong-init", list())
+        }, once = TRUE)
+      }
     })
     
     ticTacToeServer("tic1")
