@@ -20,6 +20,9 @@ All games are implemented as Shiny modules for easy extension and maintenance.
 To launch the full Rcade interface:
 
 ```r
+# install.packages("devtools")
+devtools::install_github("AlanInglis/Rcade")
+
 library(Rcade)
 launch_app()
 ```
