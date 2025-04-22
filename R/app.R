@@ -5,13 +5,6 @@
 #' @return No return value. This function launches the Shiny app.
 #' @export
 #' @import shiny
-#' Launch the Rcade App
-#'
-#' Launches the full Shiny app for the Rcade package, including game navigation and modules.
-#'
-#' @return No return value. This function launches the Shiny app.
-#' @export
-#' @import shiny
 launch_app <- function() {
   addResourcePath("myimg", "inst/www")
   
