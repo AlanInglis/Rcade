@@ -14,9 +14,12 @@ ticTacToeUI <- function(id) {
     titlePanel("Tic Tac Toe"),
     sidebarLayout(
       sidebarPanel(
-        selectInput(ns("difficulty"), "Choose difficulty:",
-                    choices = c("Easy", "Hard"),
-                    selected = "Easy"),
+        div(
+          tags$label("Choose difficulty:", style = "color: black;"),
+          selectInput(ns("difficulty"), label = NULL,
+                      choices = c("Easy", "Hard"),
+                      selected = "Easy")
+        ),
         actionButton(ns("reset"), "Reset")
       ),
       mainPanel(
