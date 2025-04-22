@@ -3,6 +3,7 @@
 export(caveServer)
 export(caveUI)
 export(launch_app)
+export(launch_donkey_kong)
 export(nonogramServer)
 export(nonogramUI)
 export(play_pong)
