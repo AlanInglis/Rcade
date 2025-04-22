@@ -229,7 +229,7 @@ nonogramServer <- function(id) {
                      lapply(seq_len(nc), function(j) {
                        pos <- r - (max_col - length(p$col_clues[[j]]))
                        val <- if (pos >= 1) p$col_clues[[j]][pos] else ""
-                       tags$th(val, style = sprintf("border:1px solid #000; width:%spx; height:%spx; font-size:%spx; text-align:center; vertical-align:bottom;	color:%s;", cell, cell, fnt, if (col_solved()[j]) "lightgreen" else "black"))
+                       tags$th(val, style = sprintf("border:1px solid #000; width:%spx; height:%spx; font-size:%spx; text-align:center; vertical-align:bottom;	color:%s;", cell, cell, fnt, if (col_solved()[j]) "lightgreen" else "white"))
                      })
                    )
                  })),
@@ -239,12 +239,12 @@ nonogramServer <- function(id) {
                      lapply(seq_len(max_row), function(k) {
                        pos <- k - (max_row - length(p$row_clues[[i]]))
                        val <- if (pos >= 1) p$row_clues[[i]][pos] else ""
-                       tags$th(val, style = sprintf("border:1px solid #000; width:%spx; height:%spx; font-size:%spx; text-align:center; vertical-align:middle; color:%s;", clue_w, cell, fnt, if (row_solved()[i]) "lightgreen" else "black"))
+                       tags$th(val, style = sprintf("border:1px solid #000; width:%spx; height:%spx; font-size:%spx; text-align:center; vertical-align:middle; color:%s;", clue_w, cell, fnt, if (row_solved()[i]) "lightgreen" else "white"))
                      }),
                      lapply(seq_len(nc), function(j) {
                        cid    <- session$ns(paste0("cell_", i, "_", j))
                        filled <- state()[i, j]
-                       tags$td(id = cid, style = sprintf("position:relative; border:1px solid #000; width:%spx; height:%spx; background:%s;", cell, cell, if (filled) "black" else "white"),
+                       tags$td(id = cid, style = sprintf("position:relative; border:1px solid #000; width:%spx; height:%spx; background:%s;", cell, cell, if (filled) "steelblue" else "white"),
                                tags$div(onclick = sprintf("Shiny.setInputValue('%s',{i:%d,j:%d,nonce:Math.random()})", session$ns("cell_click"), i, j),
                                         style="position:absolute; top:0; left:0; width:100%; height:100%; cursor:pointer;"))
                      })
