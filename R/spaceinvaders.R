@@ -22,7 +22,46 @@ spaceInvadersUI <- function(id) {
         .bullet  { background-color: #ffff00; }
         .empty   { background-color: black; }
         .grid-row { line-height: 0; }
-      "))
+      ")),
+      tags$script(HTML(sprintf("
+  var spaceInputLeft  = '%s';
+  var spaceInputRight = '%s';
+  var spaceInputFire  = '%s';
+
+  var spaceHandler = function(e) {
+    if (e.key === 'ArrowLeft') {
+      Shiny.setInputValue(spaceInputLeft, Math.random());
+    } else if (e.key === 'ArrowRight') {
+      Shiny.setInputValue(spaceInputRight, Math.random());
+    } else if (e.key === 'ArrowUp') {
+      Shiny.setInputValue(spaceInputFire, Math.random());
+    }
+  };
+
+  function bindSpaceKeys() {
+    document.addEventListener('keydown', spaceHandler);
+  }
+
+  function unbindSpaceKeys() {
+    document.removeEventListener('keydown', spaceHandler);
+  }
+
+  $(document).on('shiny:inputchanged', function(event) {
+    if (event.name === 'tabs') {
+      if (event.value === 'Space Invaders') {
+        bindSpaceKeys();
+      } else {
+        unbindSpaceKeys();
+      }
+    }
+  });
+
+  $(document).ready(function() {
+    if ($('#tabs li.active a').text().trim() === 'Space Invaders') {
+      bindSpaceKeys();
+    }
+  });
+", ns("left_key"), ns("right_key"), ns("fire_key"))))
     ),
     h3("Space Invaders", style = "text-align: center; color: #00ffcc;"),
     h4(textOutput(ns("level_text")), style = "text-align: center; color: #ccc;"),
@@ -115,7 +154,9 @@ spaceInvadersServer <- function(id) {
     }
     
     output$game_grid <- renderUI({
-      tagList(render_grid())
+      div(style = "text-align: center;",
+          div(style = "display: inline-block;", render_grid())
+      )
     })
     
     output$score_text <- renderText({
@@ -139,6 +180,20 @@ spaceInvadersServer <- function(id) {
     })
     
     observeEvent(input$fire, {
+      if (!state$game_over && !state$win && is.null(state$bullet)) {
+        state$bullet <- list(row = grid_rows - 1, col = state$player_col)
+      }
+    })
+    
+    observeEvent(input$left_key, {
+      if (!state$game_over && !state$win && state$player_col > 1) state$player_col <- state$player_col - 1
+    })
+    
+    observeEvent(input$right_key, {
+      if (!state$game_over && !state$win && state$player_col < grid_cols) state$player_col <- state$player_col + 1
+    })
+    
+    observeEvent(input$fire_key, {
       if (!state$game_over && !state$win && is.null(state$bullet)) {
         state$bullet <- list(row = grid_rows - 1, col = state$player_col)
       }
