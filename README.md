@@ -12,6 +12,7 @@
 - **Nonogram** – Logic puzzles with a pixel-art twist, including multiple difficulty levels.
 - **Cave Adventure** – A text-based, choice-driven adventure through a mysterious cave.
 - **Space Invaders** - A Space Invaders "clone".
+- **R Quest** - An R code-based adventure to reach the gaol.
 
 All games are implemented as Shiny modules for easy extension and maintenance.
 
