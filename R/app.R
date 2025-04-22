@@ -6,48 +6,44 @@
 #' @export
 #' @import shiny
 launch_app <- function() {
+  addResourcePath("myimg", "inst/www")
+  
   ui <- navbarPage(
     "Game Hub", id = "tabs",
     tabPanel("Home",
              fluidPage(
                tags$head(
                  tags$style(HTML("
-        body { background-color: #111; color: #eee; font-family: 'Press Start 2P', cursive; }
-        h2, h3 { color: #00ffcc; text-shadow: 1px 1px #000; }
-        .retro-btn {
-          background-color: #ff0066;
-          color: white;
-          font-size: 16px;
-          font-family: 'Press Start 2P', cursive;
-          border: 3px solid #00ffcc;
-          padding: 15px;
-          margin: 10px;
-          box-shadow: 4px 4px #000;
-          cursor: pointer;
-        }
-        .retro-btn:hover {
-          background-color: #ff3399;
-        }
-        .game-icon {
-          width: 100px;
-          margin: 10px;
-        }
-      "))
+            body { background-color: #111; color: #eee; font-family: 'Press Start 2P', cursive; }
+            .retro-btn {
+              background-color: #ff0066;
+              color: white;
+              font-size: 16px;
+              font-family: 'Press Start 2P', cursive;
+              border: 3px solid #00ffcc;
+              padding: 15px;
+              margin: 10px;
+              box-shadow: 4px 4px #000;
+              cursor: pointer;
+            }
+            .retro-btn:hover {
+              background-color: #ff3399;
+            }
+            .game-image {
+              width: 100%;
+              max-width: 600px;
+              margin: 20px auto;
+              display: block;
+            }
+          "))
                ),
                tags$link(
                  href = "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap",
                  rel = "stylesheet"
                ),
-               h2("🎮 Welcome to the Rcade 🎮"),
+               img(src = "myimg/Rcade.png", class = "game-image"),  # your retro welcome image
                tags$div(
-                 style = "text-align: center;",
-                 img(src = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Tetris.svg/1200px-Tetris.svg.png", class = "game-icon"),
-                 img(src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Pacman.svg/1200px-Pacman.svg.png", class = "game-icon"),
-                 img(src = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Space_Invaders.svg/1200px-Space_Invaders.svg.png", class = "game-icon")
-               ),
-               h3("Choose a game to play:"),
-               tags$div(
-                 style = "text-align: center;",
+                 style = "text-align: center; margin-top: -360px;",
                  actionButton("go_tic", "Tic Tac Toe", class = "retro-btn"),
                  actionButton("go_nonogram", "Nonogram", class = "retro-btn"),
                  actionButton("go_cave", "Cave Adventure", class = "retro-btn")
