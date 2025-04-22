@@ -13,6 +13,7 @@
 - **Mini Cave Adventure** – A text-based, choice-driven adventure through a mysterious cave.
 - **Space Invaders** - A Space Invaders "clone".
 - **R Quest** - An R code-based adventure to reach the gaol.
+- **Pong** - A remake of the classic pong game.
 
 All games are implemented as Shiny modules for easy extension and maintenance.
 
