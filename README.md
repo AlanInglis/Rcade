@@ -1,3 +1,5 @@
+<img src="man/figures/badge.png" align="right" height="320" />
+
 # 🎮 Rcade
 
 **Rcade** is a retro-themed R package that launches a modular Shiny app featuring classic-style games and puzzles.
