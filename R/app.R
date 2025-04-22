@@ -49,7 +49,8 @@ launch_app <- function() {
                  actionButton("go_cave",     "Cave Adventure",  class = "retro-btn"),
                  actionButton("go_invaders", "Space Invaders",  class = "retro-btn"),
                  actionButton("go_quest",    "R Quest",         class = "retro-btn"),
-                 actionButton("go_pong",     "Pong",            class = "retro-btn")
+                 actionButton("go_pong",     "Pong",            class = "retro-btn"),
+                 actionButton("go_donkey",   "Donkey Kong",     class = "retro-btn")
                )
              )
     ),
@@ -58,7 +59,8 @@ launch_app <- function() {
     tabPanel("Cave Adventure", caveUI("cave1")),
     tabPanel("Space Invaders", spaceInvadersUI("invaders1")),
     tabPanel("R Quest",        shinyquestUI("quest1")),
-    tabPanel("Pong",           play_pong("pong"))
+    tabPanel("Pong",           play_pong("pong")),
+    tabPanel("Donkey Kong",    launch_donkey_kong())
   )
   
   server <- function(input, output, session) {
@@ -68,6 +70,7 @@ launch_app <- function() {
     observeEvent(input$go_invaders, updateTabsetPanel(session, "tabs", selected = "Space Invaders"))
     observeEvent(input$go_quest,    updateTabsetPanel(session, "tabs", selected = "R Quest"))
     observeEvent(input$go_pong,     updateTabsetPanel(session, "tabs", selected = "Pong"))
+    observeEvent(input$go_donkey,   updateTabsetPanel(session, "tabs", selected = "Donkey Kong"))
     
     observe({
       observeEvent(input$tabs, {
@@ -93,3 +96,4 @@ launch_app <- function() {
   
   shinyApp(ui, server)
 }
+
