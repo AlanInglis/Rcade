@@ -8,9 +8,9 @@
 
 ## 🕹️ Features
 
-- **Tic Tac Toe** – A simple but stylised version of the timeless game.
+- **Tic Tac Toe** – A simple stylised version of the game.
 - **Nonogram** – Logic puzzles with a pixel-art twist, including multiple difficulty levels.
-- **Cave Adventure** – A text-based, choice-driven adventure through a mysterious cave.
+- **Mini Cave Adventure** – A text-based, choice-driven adventure through a mysterious cave.
 - **Space Invaders** - A Space Invaders "clone".
 - **R Quest** - An R code-based adventure to reach the gaol.
 
