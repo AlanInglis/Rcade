@@ -8,8 +8,6 @@ launch_app()
 }
 \value{
 No return value. This function launches the Shiny app.
-
-No return value. This function launches the Shiny app.
 }
 \description{
 Launches the full Shiny app for the Rcade package, including game navigation and modules.
